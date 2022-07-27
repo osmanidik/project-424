@@ -6,96 +6,40 @@ public class PlayerMove : MonoBehaviour
 {
     public float speed = 5f;
 
-    private int hdir;
-    private int vdir;
-    private int hcount;
-    private int vcount;
-    private bool moving;
-    private int counterLimit = 3;
-
-    private static Quaternion[] directions;
+    private Vector3 direction;
+    private Vector3 rotate;
+    private bool move;
+    private Rigidbody rb;
+    private float[] degrees;
     
     // Start is called before the first frame update
     void Start()
     {
-        hdir = 1;
-        vdir = 1;
-        hcount = 0;
-        vcount = 0;
-        
-        int[] temp = new int[] {45, 0, -45, 90, 0, -90, 135, 180, -135};
+        rb = GetComponent<Rigidbody>();
+        move = false;
+        direction = Vector3.zero;
+        rotate = Vector3.zero;
 
-        directions = new Quaternion[temp.Length];
-
-        for (int i = 0; i < temp.Length; i++)
-        {
-            directions[i] = Quaternion.Euler(0, temp[i], 0);
-        }
+        degrees = new float[] { 45f, 0f, -45f, 90f, 0f, -90f, 135f, 180f, -135f };
     }
 
     // Update is called once per frame
     void Update()
     {
-        moving = false;
+        move = false;
+        
+        direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
-        //hcount vcount is to make it easier to leave player at a diagonal position.
-        if (hcount == 0)
-            hdir = 1;
-        else
-        { 
-            hcount--;
-            Debug.Log(hcount);
-        }
-
-        if (vcount == 0)
-            vdir = 1;
-        else
-            vcount--;
-
-        //hdiff vdiff: temp values to determine which keys are pressed, later added to hdir if necessary
-        int hdiff = 1;
-        int vdiff = 1;
-
-        if (Input.GetKey(KeyCode.A))
+        if (direction != Vector3.zero)
         {
-            hdiff += 1;
-            moving = true;
-            hcount = counterLimit;
+            rotate = new Vector3( 0f, degrees[3 * (int)(1-direction.z) + (int)(1-direction.x)], 0f );
+            transform.eulerAngles = rotate;
+            move = true;
         }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            hdiff -= 1;
-            moving = true;
-            hcount = counterLimit;
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            vdiff -= 1;
-            moving = true;
-            vcount = counterLimit;
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            vdiff += 1;
-            moving = true;
-            vcount = counterLimit;
-        }
-
-        if (moving)
-        {
-            if (hdir != hdiff)
-                hdir = hdiff;
-            if (vdir != vdiff)
-                vdir = vdiff;
-
-            if (hdir != 1 || vdir != 1)
-                {
-                    transform.rotation = directions[3 * vdir + hdir];
-                    transform.Translate(Vector3.left * speed * Time.deltaTime);
-                }
-        }
+    }
+    private void FixedUpdate()
+    {
+        if (move)
+            rb.MovePosition(transform.position + (direction.normalized * speed * Time.fixedDeltaTime));
     }
 }
