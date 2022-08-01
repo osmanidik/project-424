@@ -57,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\PlayerMove.cs" />
+    <Compile Include="Assets\ZombieMove.cs" />
+    <Compile Include="Assets\Popsicle.cs" />
+    <Compile Include="Assets\Spawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
