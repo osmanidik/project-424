@@ -36,6 +36,14 @@ public class PlayerMove : MonoBehaviour
             transform.eulerAngles = rotate;
             move = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            foreach (GameObject z in GameObject.FindGameObjectsWithTag("Zombie"))
+            {
+                Destroy(z);
+            }
+        }
     }
     private void FixedUpdate()
     {

@@ -7,8 +7,7 @@ public class ZombieMove : MonoBehaviour
 {
     public Transform goal;
     NavMeshAgent agent;
-    public float maxRadius;
-    public float minRadius;
+    public float radius;
     GameObject[] players;
     // Start is called before the first frame update
     void Start()
@@ -29,7 +28,7 @@ public class ZombieMove : MonoBehaviour
                 float distance = Vector3.Distance(p.transform.position, this.transform.position);
                 float oldDistance = Vector3.Distance(this.transform.position, agent.destination);
 
-                if (distance >= minRadius && distance <= maxRadius && distance < oldDistance)
+                if (distance <= radius && distance < oldDistance)
                 {
                     agent.destination = p.transform.position;
                 }

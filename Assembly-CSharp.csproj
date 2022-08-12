@@ -60,6 +60,7 @@
     <Compile Include="Assets\Popsicle.cs" />
     <Compile Include="Assets\Spawner.cs" />
     <Compile Include="Assets\PlayerMove.cs" />
+    <Compile Include="Assets\LevelManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

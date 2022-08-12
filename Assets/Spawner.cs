@@ -13,18 +13,20 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        internalCounter = count;
-
         Invoke("spawn", frequency);
     }
 
     void spawn()
     {
-        if (internalCounter > 0)
+        if (count > 0)
         {
             Vector3 spreadVector = new Vector3(Random.Range(0f, spread), 0f, Random.Range(0f, spread));
-            Instantiate(spawnee, this.transform.position + spreadVector, Quaternion.identity);
-            internalCounter--;
+            GameObject z = Instantiate(spawnee, this.transform.position + spreadVector, Quaternion.identity);
+
+            ZombieMove zs = z.GetComponent<ZombieMove>();
+            zs.radius = Random.Range(5f, 15f);
+
+            count--;
             Invoke("spawn", frequency);
         }
     }
