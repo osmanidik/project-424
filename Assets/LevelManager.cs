@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
     public GameObject[] spawners;
     public GameObject popsicle;
+    public GameObject scoreText;
+    public GameObject middleText;
 
     private bool over;
     private bool track;
@@ -19,8 +22,8 @@ public class LevelManager : MonoBehaviour
         track = false;
         wave = 0;
         waveCount = 0;
-
-        Invoke("spawnWave", 5f);
+        
+        Invoke("newWave", 2f);
     }
 
     // Update is called once per frame
@@ -31,22 +34,33 @@ public class LevelManager : MonoBehaviour
 
         if (!over)
         {
+            
             if (track)
             {
                 int remaining = GameObject.FindGameObjectsWithTag("Zombie").Length;
+                score = waveCount - remaining;
+                scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString("000") + "00";
 
                 if (remaining == 0)
                 {
                     track = false;
-                    Invoke("spawnWave", 5f);
+                    Invoke("newWave", 2f);
                 }
             }
         }
     }
 
-    void spawnWave()
+    void newWave()
     {
         wave++;
+        middleText.GetComponent<TextMeshProUGUI>().text = "Wave " + wave.ToString("00");
+        Invoke("spawnWave", 4f);
+    }
+
+    void spawnWave()
+    {
+        middleText.GetComponent<TextMeshProUGUI>().text = "";
+        
         int zombieCount = (int)(wave / 2f + 3) * 2;
 
         foreach(GameObject s in spawners)
@@ -58,7 +72,7 @@ public class LevelManager : MonoBehaviour
             script.StartCoroutine("Start");
         }
 
-        waveCount = spawners.Length * zombieCount;
+        waveCount = spawners.Length * zombieCount + score;
 
         Invoke("startTracking", ((float)zombieCount)/2f);
     }
@@ -66,10 +80,10 @@ public class LevelManager : MonoBehaviour
     void startTracking()
     {
         track = true;
-        Debug.Log("start");
     }
     void gameOver()
     {
         over = true;
+
     }
 }
