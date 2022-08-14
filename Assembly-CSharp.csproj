@@ -61,6 +61,7 @@
     <Compile Include="Assets\Spawner.cs" />
     <Compile Include="Assets\LevelManager.cs" />
     <Compile Include="Assets\PlayerMove.cs" />
+    <Compile Include="Assets\Snowball.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

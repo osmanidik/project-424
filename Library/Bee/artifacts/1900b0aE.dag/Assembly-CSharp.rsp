@@ -352,6 +352,7 @@
 "Assets/LevelManager.cs"
 "Assets/PlayerMove.cs"
 "Assets/Popsicle.cs"
+"Assets/Snowball.cs"
 "Assets/Spawner.cs"
 "Assets/ZombieMove.cs"
 -langversion:9.0

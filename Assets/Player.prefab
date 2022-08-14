@@ -366,6 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  snowball: {fileID: 542701648060080746, guid: 819baa97f74140b469e52fa8d727e8e7, type: 3}
 --- !u!54 &6058150922275426848
 Rigidbody:
   m_ObjectHideFlags: 0

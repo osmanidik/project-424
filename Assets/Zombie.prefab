@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 1084541302895902158}
   m_Layer: 0
   m_Name: Hand
-  m_TagString: Untagged
+  m_TagString: ZombieSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -519,8 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goal: {fileID: 8620938846498041258, guid: 5f1095df0a578b0488f22fc4ad0c1593, type: 3}
-  maxRadius: 10
-  minRadius: 4
+  radius: 0
 --- !u!1 &3864869367695452863
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,7 +566,7 @@ GameObject:
   - component: {fileID: 654895344379919575}
   m_Layer: 0
   m_Name: Hand
-  m_TagString: Untagged
+  m_TagString: ZombieSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -683,7 +682,7 @@ GameObject:
   - component: {fileID: 2426010467679531660}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: ZombieSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class LevelManager : MonoBehaviour
     public GameObject popsicle;
     public GameObject scoreText;
     public GameObject middleText;
+    public GameObject popsicleText;
 
     private bool over;
     private bool track;
@@ -29,12 +31,13 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (popsicle.GetComponent<Popsicle>().health == 0)
-            gameOver();
-
         if (!over)
         {
-            
+            popsicleText.GetComponent<TextMeshProUGUI>().text = (popsicle.GetComponent<Popsicle>().health / 50f * 100).ToString() + "%";
+
+            if (popsicle.GetComponent<Popsicle>().health == 0)
+                gameOver();
+
             if (track)
             {
                 int remaining = GameObject.FindGameObjectsWithTag("Zombie").Length;
@@ -48,12 +51,20 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if (Input.GetKey(KeyCode.R))
+            {
+                SceneManager.LoadScene("Main");
+            }
+        }
     }
 
     void newWave()
     {
         wave++;
         middleText.GetComponent<TextMeshProUGUI>().text = "Wave " + wave.ToString("00");
+        popsicle.GetComponent<Popsicle>().health = 50f;
         Invoke("spawnWave", 4f);
     }
 
@@ -81,9 +92,17 @@ public class LevelManager : MonoBehaviour
     {
         track = true;
     }
-    void gameOver()
+    public void gameOver()
     {
         over = true;
-
+        middleText.GetComponent<TextMeshProUGUI>().text = "Game Over\n\nPress 'R' to restart.";
+        foreach (GameObject z in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            Destroy(z);
+        }
+        foreach (GameObject z in GameObject.FindGameObjectsWithTag("Popsicle"))
+        {
+            Destroy(z);
+        }
     }
 }
